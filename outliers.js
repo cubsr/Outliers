@@ -4,14 +4,22 @@ var data = JSON.parse(fs.readFileSync("MyData.json"));
 get_outliers(data);
 
 function get_outliers(mydata){//returns an object containing arrays of the sorted data and top and bottom difference outliers
-let high_scores_upper = [0, 0, 0, 0, 0, 0]; //stores the larger number of the larger difference
-let high_scores_lower = [0, 0, 0, 0, 0, 0]; //stores the smaller number of the larger difference
-let high_scores_names = ["", "", "", "", "", ""]; //stores the combined formatted names of the high_scores
-let low_scores_lower = [1000, 1000, 1000, 1000, 1000, 1000]; //stores the smaller number of the smaller difference
-let low_scores_upper = [1000, 1000, 1000, 1000, 1000, 1000]; //stores the larger number of the smaller difference
-let low_scores_names = ["", "", "", "", "", ""];//stores the combined formatted names of the smaller scores
-let difference_high = [0, 0, 0, 0, 0, 0]; //the 6 largest differences in the data
-let difference_low = [1000, 1000, 1000, 1000, 1000, 1000]; //the 6 smallest differences in the data
+  let high_scores_upper = [0, 0, 0, 0, 0, 0]; //stores the larger number of the larger difference
+  let high_scores_lower = [0, 0, 0, 0, 0, 0]; //stores the smaller number of the larger difference
+  let high_scores_names = ["", "", "", "", "", ""]; //stores the combined formatted names of the high_scores
+  let high_scores_demographic_type = ["", "", "", "", "", ""]; //stores the type or key3
+  let high_scores_demographic_upper = ["", "", "", "", "", ""]; //stores theactual value of key or key2/keycheck2 for the higher value
+  let high_scores_demographic_lower = ["", "", "", "", "", ""]; //stores theactual value of key or key2/keycheck2 for the lower value
+  let high_scores_subcategory = ["", "", "", "", "", ""]; //stores key/keycheck
+  let low_scores_demographic_type = ["", "", "", "", "", ""]; //stores the type or key3
+  let low_scores_demographic_upper = ["", "", "", "", "", ""]; //stores theactual value of key or key2/keycheck2 for the higher value
+  let low_scores_demographic_lower = ["", "", "", "", "", ""]; //stores theactual value of key or key2/keycheck2 for the lower value
+  let low_scores_subcategory = ["", "", "", "", "", ""]; //stores key/keycheck
+  let low_scores_lower = [1000, 1000, 1000, 1000, 1000, 1000]; //stores the smaller number of the smaller difference
+  let low_scores_upper = [1000, 1000, 1000, 1000, 1000, 1000]; //stores the larger number of the smaller difference
+  let low_scores_names = ["", "", "", "", "", ""];//stores the combined formatted names of the smaller scores
+  let difference_high = [0, 0, 0, 0, 0, 0]; //the 6 largest differences in the data
+  let difference_low = [1000, 1000, 1000, 1000, 1000, 1000]; //the 6 smallest differences in the data
   for (let key4 in mydata) { //these for loops unwrap the JSON
     for (let key3 in mydata[key4]) {
       for (let key2 in mydata[key4][key3]) {
@@ -34,10 +42,18 @@ let difference_low = [1000, 1000, 1000, 1000, 1000, 1000]; //the 6 smallest diff
                         high_scores_names = array_value_mover(high_scores_names, key3 + ": " + keycheck2 + ": " + keycheck + " > " + key2 + ": " + key, position);
                         high_scores_upper = array_value_mover(high_scores_upper, mydata[key4][key3][keycheck2][keycheck], position);
                         high_scores_lower = array_value_mover(high_scores_lower, mydata[key4][key3][key2][key], position);
+                        high_scores_demographic_type = array_value_mover(high_scores_demographic_type, key3, position);
+                        high_scores_demographic_upper = array_value_mover(high_scores_demographic_upper, keycheck2, position);
+                        high_scores_demographic_lower = array_value_mover(high_scores_demographic_lower, key2, position);
+                        high_scores_subcategory = array_value_mover(high_scores_subcategory, keycheck, position);
                       }else{
                         high_scores_names = array_value_mover(high_scores_names, key3 + ": " + key2 + ": " + key + " > " + keycheck2 + ": " + keycheck, position);
                         high_scores_upper = array_value_mover(high_scores_upper, mydata[key4][key3][key2][key], position);
                         high_scores_lower = array_value_mover(high_scores_lower, mydata[key4][key3][keycheck2][keycheck], position);
+                        high_scores_demographic_type = array_value_mover(high_scores_demographic_type, key3, position);
+                        high_scores_demographic_upper = array_value_mover(high_scores_demographic_upper, key2, position);
+                        high_scores_demographic_lower = array_value_mover(high_scores_demographic_lower, keycheck2, position);
+                        high_scores_subcategory = array_value_mover(high_scores_subcategory, keycheck, position);
                       }
                     }
                   }
@@ -51,10 +67,18 @@ let difference_low = [1000, 1000, 1000, 1000, 1000, 1000]; //the 6 smallest diff
                          low_scores_names = array_value_mover(low_scores_names, key3 + ": " + keycheck2 + ": " + keycheck + " > " + key2 + ": " + key, position);
                          low_scores_upper = array_value_mover(low_scores_upper, mydata[key4][key3][keycheck2][keycheck], position);
                          low_scores_lower = array_value_mover(low_scores_lower, mydata[key4][key3][key2][key], position);
+                         low_scores_demographic_type = array_value_mover(low_scores_demographic_type, key3, position);
+                         low_scores_demographic_upper = array_value_mover(low_scores_demographic_upper, keycheck2, position);
+                         low_scores_demographic_lower = array_value_mover(low_scores_demographic_lower, key2, position);
+                         low_scores_subcategory = array_value_mover(low_scores_subcategory, keycheck, position);
                        }else{
                          low_scores_names = array_value_mover(low_scores_names, key3 + ": " + key2 + ": " + key + " > " + keycheck2 + ": " + keycheck, position);
                          low_scores_upper = array_value_mover(low_scores_upper, mydata[key4][key3][key2][key], position);
                          low_scores_lower = array_value_mover(low_scores_lower, mydata[key4][key3][keycheck2][keycheck], position);
+                         low_scores_demographic_type = array_value_mover(low_scores_demographic_type, key3, position);
+                         low_scores_demographic_upper = array_value_mover(low_scores_demographic_upper, key2, position);
+                         low_scores_demographic_lower = array_value_mover(low_scores_demographic_lower, keycheck2, position);
+                         low_scores_subcategory = array_value_mover(low_scores_subcategory, keycheck, position);
                        }
                      }
                    }
@@ -67,15 +91,15 @@ let difference_low = [1000, 1000, 1000, 1000, 1000, 1000]; //the 6 smallest diff
     }
   }
   //elements of the object should be accessible through obj[difference_high[1]]; etc
-  let obj = {difference_high, high_scores_upper, high_scores_names, high_scores_lower, difference_low, low_scores_upper, low_scores_names, low_scores_lower};
+  let obj = {high_outliers: {labels:{high_scores_demographic_type, high_scores_subcategory}, data:{upper:{high_scores_demographic_upper, high_scores_upper}, lower:{high_scores_demographic_lower, high_scores_lower}, difference_high}}, lowOutliers:{labels: {low_scores_demographic_type, low_scores_subcategory}, data: {upper:{low_scores_demographic_upper, low_scores_upper}, lower:{low_scores_demographic_lower, low_scores_lower}, difference_low}}};
 
-  /*for(let i = 0; i < high_scores_upper.length; i++){
+  for(let i = 0; i < high_scores_upper.length; i++){
     console.log(difference_high[i] + " " + high_scores_upper[i] + " " + high_scores_names[i] + " " + high_scores_lower[i]);
   }
   for(let i = 0; i < low_scores_upper.length; i++){
-    console.log(difference_low[i] + " " + low_scores_upper[i] + " " + low_scores_names[i] + " " + low_scores_lower[i]);
-  }//These for loops are for checking data*/
-  
+    console.log(difference_low[i] + " " + low_scores_demographic_type[1] + ": " + low_scores_demographic_upper[i] + " " + low_scores_subcategory[i] + ": " + low_scores_upper[i] + " > " + low_scores_demographic_lower[i] + " " + low_scores_subcategory[i] + ": " + low_scores_lower[i]);
+  }//These for loops are for checking data
+
   return obj;
 }
 
